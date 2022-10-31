@@ -15,7 +15,7 @@ import kotlin.coroutines.coroutineContext
 abstract class SingleFoodModel: EpoxyModelWithHolder<SingleFoodModel.FoodHolder>() {
 
     @EpoxyAttribute
-    var clickListener: (() -> Unit)? = null
+    var clickListener: ((String) -> Unit)? = null
 
     @EpoxyAttribute
     var titleStr:String? = ""
@@ -27,7 +27,10 @@ abstract class SingleFoodModel: EpoxyModelWithHolder<SingleFoodModel.FoodHolder>
         with(holder.binding){
             title.text = titleStr
             des.text = descStr
-            title.setOnClickListener{clickListener}
+
+            root.setOnClickListener{
+                clickListener?.let { it("$titleStr -> $descStr") }
+            }
         }
     }
 
