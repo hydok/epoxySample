@@ -8,6 +8,7 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyHolder
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
+import io.hydok.epoxy.databinding.SinglefoodLayoutBinding
 import kotlin.coroutines.coroutineContext
 
 @EpoxyModelClass(layout = R.layout.singlefood_layout)
@@ -17,27 +18,25 @@ abstract class SingleFoodModel: EpoxyModelWithHolder<SingleFoodModel.FoodHolder>
     var clickListener: (() -> Unit)? = null
 
     @EpoxyAttribute
-    var title:String? = ""
+    var titleStr:String? = ""
 
     @EpoxyAttribute
-    var desc:String? = ""
+    var descStr:String? = ""
 
     override fun bind(holder: FoodHolder) {
-        holder.titleView.text = title
-        holder.descView.text = desc
-        holder.titleView.setOnClickListener{clickListener}
+        with(holder.binding){
+            title.text = titleStr
+            des.text = descStr
+            title.setOnClickListener{clickListener}
+        }
     }
 
 
     inner class FoodHolder :EpoxyHolder() {
-
-        lateinit var titleView: TextView
-        lateinit var descView: TextView
-
+        lateinit var binding : SinglefoodLayoutBinding
 
         override fun bindView(itemView: View) {
-            titleView = itemView.findViewById(R.id.title)
-            descView = itemView.findViewById(R.id.des)
+            binding = SinglefoodLayoutBinding.bind(itemView)
         }
 
     }

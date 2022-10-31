@@ -7,44 +7,45 @@ import com.airbnb.epoxy.carousel
 
 class SingleFoodController: AsyncEpoxyController() {
 
-    var foodItems :List<Food> = FoodDataFactory.getFoodItems(4)
+    private var foodItems :List<Food> = FoodDataFactory.getFoodItems(4)
+    private var foodItems2 :List<Food> = FoodDataFactory.getFoodItems(3)
+    private var foodItems3 :List<Food> = FoodDataFactory.getFoodItems(7)
 
     override fun buildModels() {
         var i:Long =0
 
 
-
         singleHeader {
-            id(0)
-            content("헤더1~!")
+            id(i)
+            title("Header1")
         }
 
         foodItems.forEach {
             singleFood {
                 id(i++)
-                title(it.title)
-                desc(it.description)
+                titleStr(it.title)
+                descStr(it.description)
             }
         }
 
         singleHeader {
-            id(0)
-            content("헤더2~!")
+            id(i)
+            title("Header2")
         }
 
-        foodItems.forEach {
+        foodItems2.forEach {
             singleFood {
                 id(i++)
-                title(it.title)
-                desc(it.description)
+                titleStr(it.title)
+                descStr(it.description)
             }
         }
 
-        val models = foodItems.map{
+        val models = foodItems3.map{
             SingleFoodModel_()
                 .id(i++)
-                .title(it.title)
-                .desc(it.description)
+                .titleStr(it.title)
+                .descStr(it.description)
         }
 
         carousel {

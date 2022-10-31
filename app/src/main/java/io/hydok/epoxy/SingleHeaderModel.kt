@@ -7,25 +7,29 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyHolder
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
+import io.hydok.epoxy.databinding.SinglefoodHeaderLayoutBinding
+import io.hydok.epoxy.databinding.SinglefoodLayoutBinding
 
 @EpoxyModelClass(layout = R.layout.singlefood_header_layout)
-abstract class SingleHeaderModel: EpoxyModelWithHolder<SingleHeaderModel.FoodHolder>() {
+abstract class SingleHeaderModel: EpoxyModelWithHolder<SingleHeaderModel.HeaderHolder>() {
 
     @EpoxyAttribute
-    var content:String? = ""
+    var title:String? = ""
 
-    override fun bind(holder: FoodHolder) {
-        holder.contentView.text = content
-
+    override fun bind(holder: HeaderHolder) {
+        with(holder.binding){
+            content.text = title
+        }
     }
 
 
-    inner class FoodHolder :EpoxyHolder() {
-        lateinit var contentView: TextView
+    inner class HeaderHolder :EpoxyHolder() {
+        lateinit var binding: SinglefoodHeaderLayoutBinding
 
 
         override fun bindView(itemView: View) {
-            contentView = itemView.findViewById(R.id.content)
+            binding = SinglefoodHeaderLayoutBinding.bind(itemView)
+
         }
 
     }
